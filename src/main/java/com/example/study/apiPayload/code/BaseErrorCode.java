@@ -1,4 +1,7 @@
 package com.example.study.apiPayload.code;
 
-public class BaseErrorCode {
+public interface BaseErrorCode {
+    public ErrorReasonDTO getReason();
+    public ErrorReasonDTO getReasonHttpStatus();
+
 }

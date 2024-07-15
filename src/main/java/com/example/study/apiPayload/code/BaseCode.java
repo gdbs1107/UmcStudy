@@ -1,4 +1,6 @@
 package com.example.study.apiPayload.code;
 
-public class BaseCode {
+public interface BaseCode {
+    public ReasonDTO getReason();
+    public ReasonDTO getReasonHttpStatus();
 }
