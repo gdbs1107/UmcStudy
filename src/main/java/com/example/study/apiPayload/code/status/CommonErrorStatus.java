@@ -23,10 +23,20 @@ public enum CommonErrorStatus implements BaseErrorCode {
     @Override
     public ErrorReasonDTO getReason() {
         return ErrorReasonDTO.builder()
+                .message(message)
+                .code(code)
+                .isSuccess(false)
+                .build();
     }
 
     @Override
     public ErrorReasonDTO getReasonHttpStatus() {
-        return null;
+
+        return ErrorReasonDTO.builder()
+                .message(message)
+                .code(code)
+                .httpStatus(httpStatus)
+                .isSuccess(false)
+                .build();
     }
 }
