@@ -5,8 +5,12 @@ import com.example.study.domain.Enum.MemberStatus;
 import com.example.study.domain.Enum.SocialType;
 import com.example.study.domain.Review;
 import com.example.study.domain.common.BaseEntity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +20,9 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+//null값을 쿼리를 보내지 않는 어노테이션
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Member extends BaseEntity {
@@ -47,8 +54,10 @@ public class Member extends BaseEntity {
     private LocalDate inactiveDate;
 
     @Column(nullable = false, length = 50)
+    @Nullable
     private String email;
 
+    @ColumnDefault("0")
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
