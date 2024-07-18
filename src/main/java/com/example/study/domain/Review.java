@@ -10,13 +10,15 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
+
+    private String body;
 
     private Float score;
 
@@ -27,4 +29,16 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store")
     private Store store;
+
+
+
+    public void setMember(Member member){
+        if(this.member != null)
+            member.getReviewList().remove(this);
+        this.member = member;
+        member.getReviewList().add(this);
+    }
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }
