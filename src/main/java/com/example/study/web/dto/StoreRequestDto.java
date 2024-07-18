@@ -17,4 +17,5 @@ public class StoreRequestDto {
         Float score;
 
     }
+
 }

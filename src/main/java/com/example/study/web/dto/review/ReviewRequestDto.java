@@ -15,4 +15,15 @@ public class ReviewRequestDto {
         Long memberMappingId;
         Long storeMappingId;
     }
+    @Getter
+    public static class ReviewtDto {
+
+        String title;
+
+        String body;
+
+        Float score;
+
+    }
+
 }
