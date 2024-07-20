@@ -2,6 +2,8 @@ package com.example.study.web.dto.review;
 
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 public class ReviewRequestDto {
 
     @Getter
@@ -25,5 +27,6 @@ public class ReviewRequestDto {
         Float score;
 
     }
+
 
 }

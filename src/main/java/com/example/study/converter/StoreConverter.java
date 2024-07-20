@@ -5,8 +5,13 @@ import com.example.study.domain.Store;
 import com.example.study.web.dto.StoreRequestDto;
 import com.example.study.web.dto.StoreResponseDto;
 import com.example.study.web.dto.review.ReviewRequestDto;
+import com.example.study.web.dto.review.ReviewResponseDto;
+import org.springframework.data.domain.Page;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreConverter {
 
@@ -30,6 +35,38 @@ public class StoreConverter {
                 .title(request.getTitle())
                 .body(request.getBody())
                 .score(request.getScore())
+                .build();
+    }
+
+    public static ReviewResponseDto.createReviewResultDto toCreateReviewResultDto(Review review) {
+
+        return ReviewResponseDto.createReviewResultDto.builder()
+                .id(review.getId())
+                .createAt(LocalDateTime.now())
+                .build();
+
+    }
+
+    public static StoreResponseDto.ReviewPreViewDTO reviewPreViewDTO(Review review){
+        return StoreResponseDto.ReviewPreViewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .score(review.getScore())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .body(review.getBody())
+                .build();
+    }
+    public static StoreResponseDto.ReviewPreViewListDto reviewPreViewListDTO(Page<Review> reviewList){
+
+        List<StoreResponseDto.ReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
+                .map(StoreConverter::reviewPreViewDTO).collect(Collectors.toList());
+
+        return StoreResponseDto.ReviewPreViewListDto.builder()
+                .isLast(reviewList.isLast())
+                .isFirst(reviewList.isFirst())
+                .totalPage(reviewList.getTotalPages())
+                .totalElements(reviewList.getTotalElements())
+                .listSize(reviewPreViewDTOList.size())
+                .reviewList(reviewPreViewDTOList)
                 .build();
     }
 }
