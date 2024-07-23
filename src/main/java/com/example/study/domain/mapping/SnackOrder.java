@@ -1,6 +1,5 @@
-package com.example.study.domain;
+package com.example.study.domain.mapping;
 
-import com.example.study.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,12 +11,18 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Region {
+public class SnackOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "snack_id")
+    private Snack snack;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }

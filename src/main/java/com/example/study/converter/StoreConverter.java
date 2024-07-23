@@ -1,5 +1,6 @@
 package com.example.study.converter;
 
+import com.example.study.domain.Region;
 import com.example.study.domain.Review;
 import com.example.study.domain.Store;
 import com.example.study.web.dto.StoreRequestDto;
@@ -21,13 +22,15 @@ public class StoreConverter {
                 .build();
     }
 
-    public static Store toStore(StoreRequestDto.StoreRegisterRequestDto request) {
+    public static Store toStore(StoreRequestDto.StoreRegisterRequestDto request,Region region) {
         return Store.builder()
                 .address(request.getAddress())
                 .name(request.getName())
                 .score(request.getScore())
+                .region(region)
                 .build();
     }
+
 
     public static Review toReview(ReviewRequestDto.ReviewtDto request) {
 

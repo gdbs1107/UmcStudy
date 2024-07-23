@@ -1,12 +1,20 @@
 package com.example.study.service.storeService;
 
+import com.example.study.apiPayload.code.status.ErrorStatus;
+import com.example.study.apiPayload.exception.handler.FoodCategoryHandler;
+import com.example.study.apiPayload.exception.handler.RegionCategoryHandler;
 import com.example.study.converter.StoreConverter;
+import com.example.study.domain.Region;
 import com.example.study.domain.Store;
+import com.example.study.repository.RegionRepository;
 import com.example.study.repository.StoreRepository;
 import com.example.study.web.dto.StoreRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,11 +22,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreCommandServiceImpl implements StoreCommandService{
 
     private final StoreRepository storeRepository;
+    private final RegionRepository regionRepository;
 
     @Override
     public Store registerStore(StoreRequestDto.StoreRegisterRequestDto request){
 
-        Store newStore = StoreConverter.toStore(request);
+
+        Region region= regionRepository.findById(request.getRegionNumber()).orElse(null);
+
+        Store newStore = StoreConverter.toStore(request,region);
+
         return storeRepository.save(newStore);
     }
 }
